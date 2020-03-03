@@ -6,32 +6,36 @@ Created on Thu Feb 20 11:51:27 2020
 @author: king
 """
 
-# Importing the libraries
+# importing important libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-# Importing the dataset
+#importing dataset
 dataset = pd.read_csv('Social_Network_Ads.csv')
-X = dataset.iloc[:, [2, 3]].values
-y = dataset.iloc[:, 4].values
+x=dataset.iloc[:,2:4].values
+y=dataset.iloc[:,4].values
 
-# Splitting the dataset into the Training set and Test set
-from sklearn.cross_validation import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.25, random_state = 0)
+#spliting the data into training set and test set
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.25,random_state=0) 
 
-# Feature Scaling
+# feature scaling
 from sklearn.preprocessing import StandardScaler
-sc = StandardScaler()
-X_train = sc.fit_transform(X_train)
-X_test = sc.transform(X_test)
+sc_x=StandardScaler()
+sc_y=StandardScaler()
+x_train=sc_x.fit_transform(x_train)
+x_test=sc_y.fit_transform(x_test)
 
-# Fitting classifier to the Training set
-# Create your classifier here
+# Support vector classification
+from sklearn.svm import SVC
+classifier=SVC(kernel='linear',random_state=0)
+classifier.fit(x_train,y_train)
 
-# Predicting the Test set results
-y_pred = classifier.predict(X_test)
+#testing of classification model
+y_pred=classifier.predict(x_test)
 
-# Making the Confusion Matrix
+#creating confusion matrix to check how many prediction are correct or not
 from sklearn.metrics import confusion_matrix
-cm = confusion_matrix(y_test, y_pred)
+cm=confusion_matrix(y_test,y_pred)
+

@@ -22,11 +22,11 @@ for newFrame in resizeImage(image , scale = 1.5):
             continue
         
         #classifer will come here to work 
-        
-        cv2.rectangle(newFrame,(x, y), (x + windowW, y + windowH),(0,255,0),2)
+        clone = newFrame.copy()
+        cv2.rectangle(clone,(x, y), (x + windowW, y + windowH),(0,255,0),2)
         cv2.namedWindow("Window",cv2.WINDOW_NORMAL)
         cv2.resizeWindow("Window", newFrame.shape[1],newFrame.shape[0])#(w,h)
-        cv2.imshow("Window",newFrame)
+        cv2.imshow("Window",clone)
         cv2.waitKey(1)
         time.sleep(0.030)
         
